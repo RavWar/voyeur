@@ -10,3 +10,5 @@ require "Voyeur/audio_converters/aac"
 require "Voyeur/audio_converters/ogg"
 require "Voyeur/media_time"
 require 'open4'
+
+ENGINE = RUBY_PLATFORM =~ /java/ ? IO : Open4

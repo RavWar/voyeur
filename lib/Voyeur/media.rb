@@ -10,8 +10,8 @@ module Voyeur
 
     def get_info
       output = ''
-      status = Open4::popen4("ffmpeg -i #{@filename}") do |pid, stdin, stdout, stderr|
-        output = stderr.read.strip
+      ENGINE::popen4("ffmpeg -i #{@filename}") do |pid, stdin, stdout, stderr|
+        output = stderr.read.strip.force_encoding('BINARY')
       end
       @raw_duration = $1 if output =~ /Duration: (\d+:\d+:\d+.\d+)/
     end

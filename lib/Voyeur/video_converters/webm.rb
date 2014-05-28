@@ -6,7 +6,7 @@ module Voyeur
     end
 
     def convert_options
-      "-b 1500k -vcodec libvpx -acodec libvorbis -ab 160000 -f webm -g 30"
+      "-b:v 1500k -vcodec libvpx -acodec libvorbis -ab 160k -ac 2 -g 30"
     end
   end
 end

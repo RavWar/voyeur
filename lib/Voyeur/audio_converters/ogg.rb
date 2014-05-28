@@ -2,12 +2,11 @@ module Voyeur
   class Ogg < Converter
 
     def file_extension
-      "ogg"
+      'ogg'
     end
 
     def convert_options
-      "-strict -2 -acodec vorbis -aq 60"
+      '-acodec libvorbis'
     end
   end
-
 end

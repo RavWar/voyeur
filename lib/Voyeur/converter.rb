@@ -44,23 +44,23 @@ module Voyeur
     end
 
     def call_external_converter
-      command = "ffmpeg -y -i #{@input_media.filename} #{self.convert_options} #{@output_media.filename}"
+      command = %Q[ffmpeg -y -i "#{@input_media.filename}" #{self.convert_options} "#{@output_media.filename}"]
       out, err = ""
 
-      status = Open4::popen4(command) do |pid, stdin, stdout, stderr|
+      ENGINE::popen4(command) do |pid, stdin, stdout, stderr|
         err = ''
         out = ''
         stderr.each("r") do |line|
-          err += line
+          err += line.force_encoding('BINARY')
           if line =~ /time=(\d+:\d+:\d+.\d+)/
             yield $1 if block_given?
           end
         end
       end
 
-      error_message = err.split('\n').last
+      error_message = err.split("\n").last
 
-      @status = { status: status.exitstatus, stdout: out, stderr: err,
+      @status = { status: $?.exitstatus, stdout: out, stderr: err,
                   error_message: error_message, media: @output_media }
       return @status
     end
